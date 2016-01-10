@@ -1,7 +1,6 @@
 import React from 'react';
 import Showdown from 'showdown';
 
-
 const Text = React.createClass({
   renderText() {
     const converter = new Showdown.Converter()

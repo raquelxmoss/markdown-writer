@@ -1,17 +1,17 @@
 import ReactDOM from 'react-dom';
 import React from 'react';
-// import { createStore } from 'redux';
-// import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 
 import App from './containers/App';
-// import writer from './reducers/writer';
+import { writer } from './reducers/writer';
 
-// let store = createStore(writer)
+let store = createStore(writer)
 
 ReactDOM.render(
-  // <Provider store={store}>
+  <Provider store={store}>
     <App />
-  // </Provider>,
-  ,document.getElementById('app')
+  </Provider>,
+  document.getElementById('app')
 )
 
