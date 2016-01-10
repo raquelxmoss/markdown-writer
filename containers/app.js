@@ -7,22 +7,18 @@ import { UPDATE_TEXT, updateText } from '../actions/writer_actions';
 
 const App = React.createClass({
   render() {
+    const { dispatch } = this.props
     return (
       <div>
         <Text text={this.props.text} />
-        <Editor />
+        <Editor updateText={(text) => dispatch(updateText(text))} />
       </div>
     )
   }
 });
 
-
 const mapStateToProps = (state) => {
   return { text: state }
 }
 
-const mapDispatchToProps = (state) => {
-  return { updateText }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps)(App)
