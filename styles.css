@@ -1,5 +1,10 @@
+body * {
+  display: inline;
+}
+
 .container {
-  width: 30em;
+  display: block !important;
+  width: 40em;
   margin: 0 auto;
 }
 
