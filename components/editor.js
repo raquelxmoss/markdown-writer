@@ -19,6 +19,7 @@ const Editor = React.createClass({
 
   render() {
     return (
+      <div>
       <textarea
         className="editor"
         ref="editor"
@@ -26,6 +27,7 @@ const Editor = React.createClass({
         onKeyDown={(e) => this.handleBackspace(e)}
         onInput={() => this.updateText()}
         defaultValue={this.props.tail} />
+      </div>
     )
   }
 });

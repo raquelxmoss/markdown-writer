@@ -15,7 +15,10 @@ const Text = React.createClass({
 
   render() {
     return (
-      <div dangerouslySetInnerHTML={this.renderText()}></div>
+      <div>
+        {this.props.text === '' ? 'Just write...' : ''}
+        <div dangerouslySetInnerHTML={this.renderText()}></div>
+      </div>
     )
   }
 });
