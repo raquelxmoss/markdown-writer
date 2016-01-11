@@ -23,7 +23,7 @@ const Editor = React.createClass({
         className="editor"
         ref="editor"
         rows="1"
-        onKeyUp={(e) => this.handleBackspace(e)}
+        onKeyDown={(e) => this.handleBackspace(e)}
         onInput={() => this.updateText()}
         defaultValue={this.props.tail} />
     )
