@@ -1,8 +1,30 @@
+body * {
+  display: inline;
+}
+
 .container {
-  width: 30em;
+  display: block !important;
+  width: 40em;
   margin: 0 auto;
 }
 
-.editor {
-  width: 100%;
+.main {
+  display: inline;
+}
+
+textarea {
+  width: 20px;
+  border: none;
+  background-color: transparent;
+  resize: none;
+  outline: none;
+  line-height: 1.2em;
+}
+
+p {
+  display: block;
+}
+
+p:last-child {
+  display: inline;
 }
