@@ -3,6 +3,23 @@
   margin: 0 auto;
 }
 
-.editor {
-  width: 100%;
+.main {
+  display: inline;
+}
+
+textarea {
+  width: 20px;
+  border: none;
+  background-color: transparent;
+  resize: none;
+  outline: none;
+  line-height: 1.2em;
+}
+
+p, ul, li {
+  display: block;
+}
+
+p:last-child {
+  display: inline;
 }
