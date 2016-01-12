@@ -8,6 +8,7 @@ const trimText = (text) => {
   if (chars.length === 1) { return '' }
 
   const newWords = _.initial(chars).join('')
+
   return _.padRight(newWords, newWords.length - 1, ' ')
 }
 
