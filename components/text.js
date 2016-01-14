@@ -7,7 +7,8 @@ const Text = React.createClass({
       {
         strikethrough: true,
         tasklists: true,
-        smoothLivePreview: true
+        smoothLivePreview: true,
+        parseImgDimensions: true
       }
     )
     return {__html: converter.makeHtml(this.props.text)};
