@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Editor from '../components/editor';
 import Text from '../components/text';
-import { updateText, rollbackText } from '../actions/writer_actions';
+import { updateText, rollbackText, rollbackWord, rollbackLine } from '../actions/writer_actions';
 
 const App = React.createClass({
   onClick(e) {
@@ -19,6 +19,8 @@ const App = React.createClass({
         <Editor
           updateText={(text) => dispatch(updateText(text))}
           rollbackText={() => dispatch(rollbackText())}
+          rollbackWord={() => dispatch(rollbackWord())}
+          rollbackLine={() => dispatch(rollbackLine())}
           tail={tail} />
       </div>
     )
