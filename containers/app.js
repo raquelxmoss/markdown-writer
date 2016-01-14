@@ -12,20 +12,29 @@ const App = React.createClass({
   },
 
   render() {
-    const { dispatch, text, tail } = this.props
+    const { text, tail, updateText, rollbackWord, rollbackText, rollbackLine } = this.props
     return (
       <div className='main' onClick={(e) => this.onClick(e)}>
         <Text text={text} />
         <Editor
-          updateText={(text) => dispatch(updateText(text))}
-          rollbackText={() => dispatch(rollbackText())}
-          rollbackWord={() => dispatch(rollbackWord())}
-          rollbackLine={() => dispatch(rollbackLine())}
+          updateText={updateText}
+          rollbackText={rollbackText}
+          rollbackWord={rollbackWord}
+          rollbackLine={rollbackLine}
           tail={tail} />
       </div>
     )
   }
 });
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateText: (text) => dispatch(updateText(text)),
+    rollbackText: () => dispatch(rollbackText()),
+    rollbackWord: () => dispatch(rollbackWord()),
+    rollbackLine: () => dispatch(rollbackLine())
+  }
+}
 
 const mapStateToProps = (state) => {
   return {
@@ -34,4 +43,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)
