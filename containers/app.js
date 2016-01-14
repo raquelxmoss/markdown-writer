@@ -1,11 +1,23 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import _ from 'lodash';
 
 import Editor from '../components/editor';
 import Text from '../components/text';
 import { updateText, rollbackText, rollbackWord, rollbackLine } from '../actions/writer_actions';
 
 const App = React.createClass({
+
+  componentDidMount() {
+    this.applySettings(this.props.settings)
+  },
+
+  applySettings(settings) {
+    _.each(settings, function(value, key) {
+      document.body.style[key] = value
+    });
+  },
+
   onClick(e) {
     e.preventDefault();
     document.querySelector('.editor').focus();
@@ -38,8 +50,9 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    text: state.text,
-    tail: state.tail
+    text: state.writer.text,
+    tail: state.writer.tail,
+    settings: state.settings
   }
 }
 

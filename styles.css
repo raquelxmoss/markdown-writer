@@ -1,9 +1,4 @@
-body * {
-  /*display: inline;*/
-}
-
 .container {
-  /*display: block !important;*/
   width: 40em;
   margin: 0 auto;
 }
@@ -21,12 +16,4 @@ textarea {
   line-height: 1.2em;
   cursor: none;
   opacity: 0;
-}
-
-p, ul, li {
-  /*display: block;*/
-}
-
-p:last-child {
-  /*display: inline;*/
 }
