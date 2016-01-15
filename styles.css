@@ -1,9 +1,4 @@
-body * {
-  /*display: inline;*/
-}
-
 .container {
-  /*display: block !important;*/
   width: 40em;
   margin: 0 auto;
 }
@@ -23,10 +18,27 @@ textarea {
   opacity: 0;
 }
 
-p, ul, li {
-  /*display: block;*/
+ul.settings {
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-p:last-child {
-  /*display: inline;*/
+.settings li {
+  display: inline-block;
+  padding: 1em;
+}
+
+.settings li:first-child {
+  padding-left: 0;
+}
+
+a {
+  color: goldenrod;
+  text-decoration: none;
+}
+
+.settings-panel {
+  display: inline-block;
+  padding: 0 2em;
 }
