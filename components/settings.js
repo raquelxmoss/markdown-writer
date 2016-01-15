@@ -27,22 +27,34 @@ const Settings = React.createClass({
 
     return (
       <div>
-        <a href='#' onClick={ this.toggleVisibility }>
-          Change colors
-        </a>
-        <a href='#' onClick={ this.resetDefaults }>
-          Reset
-        </a>
+        <ul className='settings'>
+          <li>
+            <a href='#' onClick={ this.toggleVisibility }>
+              Change colors
+            </a>
+          </li>
+          <li>
+            <a href='#' onClick={ this.resetDefaults }>
+              Reset
+            </a>
+          </li>
+        </ul>
         <div style={{display: displaySettings}}>
-         <ColorPicker
-           type='chrome'
-           onChangeComplete={ this.updateBackground }
-           color={ background } />
+          <div className='settings-panel'>
+            <p>Background color:</p>
+             <ColorPicker
+               type='chrome'
+               onChangeComplete={ this.updateBackground }
+               color={ background } />
+          </div>
 
-         <ColorPicker
-           type='chrome'
-           onChangeComplete={ this.updateText }
-           color={ color } />
+          <div className='settings-panel'>
+            <p>Text color: </p>
+             <ColorPicker
+               type='chrome'
+               onChangeComplete={ this.updateText }
+               color={ color } />
+             </div>
         </div>
       </div>
     )

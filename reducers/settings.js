@@ -4,7 +4,7 @@ const defaultSettings = {
   fontFamily: 'Rokkitt',
   color: '#3b3b3b',
   lineHeight: '120%',
-  fontSize: '1em',
+  fontSize: '1.3em',
   background: '#fefefe',
   displaySettings: 'none'
 }
