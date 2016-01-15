@@ -4,6 +4,8 @@ import _ from 'lodash';
 
 import Editor from '../components/editor';
 import Text from '../components/text';
+import Settings from '../components/settings';
+
 import { updateText, rollbackText, rollbackWord, rollbackLine } from '../actions/writer_actions';
 
 const App = React.createClass({
@@ -24,7 +26,7 @@ const App = React.createClass({
   },
 
   render() {
-    const { text, tail, updateText, rollbackWord, rollbackText, rollbackLine } = this.props
+    const { text, tail, updateText, rollbackWord, rollbackText, rollbackLine, settings } = this.props
     return (
       <div className='main' onClick={(e) => this.onClick(e)}>
         <Text text={text} />
@@ -34,6 +36,7 @@ const App = React.createClass({
           rollbackWord={rollbackWord}
           rollbackLine={rollbackLine}
           tail={tail} />
+        <Settings settings={ settings } />
       </div>
     )
   }
