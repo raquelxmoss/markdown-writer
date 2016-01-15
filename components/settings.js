@@ -1,5 +1,6 @@
 import React from 'react';
 import ColorPicker from 'react-color';
+import _ from 'lodash';
 
 const Settings = React.createClass({
   updateBackground(color) {
@@ -10,22 +11,39 @@ const Settings = React.createClass({
     this.props.updateSettings({ color: `#${color.hex}` })
   },
 
+  toggleVisibility(e) {
+    e.preventDefault()
+    this.props.toggleVisibility()
+  },
+
+  resetDefaults(e) {
+    e.preventDefault()
+
+    this.props.resetSettings()
+  },
+
   render() {
-    const { background, color } = this.props.settings
+    const { background, color, displaySettings } = this.props.settings
 
     return (
       <div>
-       <ColorPicker
-         type="chrome"
-         onChange={ this.updateBackground }
-         color={ background }
-         display={ this.props.displayBackgroundColorPicker } />
+        <a href='#' onClick={ this.toggleVisibility }>
+          Change colors
+        </a>
+        <a href='#' onClick={ this.resetDefaults }>
+          Reset
+        </a>
+        <div style={{display: displaySettings}}>
+         <ColorPicker
+           type='chrome'
+           onChangeComplete={ this.updateBackground }
+           color={ background } />
 
-       <ColorPicker
-         type="chrome"
-         onChange={ this.updateText }
-         color={ color }
-         display={ this.props.displayTextColorPicker } />
+         <ColorPicker
+           type='chrome'
+           onChangeComplete={ this.updateText }
+           color={ color } />
+        </div>
       </div>
     )
   }
