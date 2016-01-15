@@ -1,6 +1,7 @@
 import _ from 'lodash';
+import Cookie from 'js-cookie';
 
-import { UPDATE_TEXT, ROLLBACK_TEXT, ROLLBACK_WORD, ROLLBACK_LINE } from '../actions/writer_actions';
+import { UPDATE_TEXT, ROLLBACK_TEXT, ROLLBACK_WORD, ROLLBACK_LINE, CLEAR_TEXT } from '../actions/writer_actions';
 
 const trimText = (text) => {
   const chars = text.split('')
@@ -38,18 +39,42 @@ const removeLine = (text) => {
   return newText
 }
 
-export const writer = (state = { text: '', tail: '' }, action) => {
+export const writer = (state = { text: Cookie.get('text') || '', tail: '' }, action) => {
   switch (action.type) {
-    case UPDATE_TEXT:
-      return  Object.assign({}, state, { text: state.text += action.text, tail: '' })
+    case UPDATE_TEXT: {
+      const newState = Object.assign({}, state, { text: state.text += action.text, tail: '' })
+
+      Cookie.set('text', newState.text)
+
+      return newState
+    }
+    case CLEAR_TEXT: {
+      const newState = Object.assign({}, state, { text: '' })
+
+      Cookie.set('text', newState.text)
+
+      return newState
+    }
     case ROLLBACK_TEXT: {
-      return Object.assign({}, state, { text: trimText(state.text), tail: getTail(state.text) })
+      const newState = Object.assign({}, state, { text: trimText(state.text), tail: getTail(state.text) })
+
+      Cookie.set('text', newState.text)
+
+      return newState
     }
     case ROLLBACK_WORD: {
-      return Object.assign({}, state, { text: removeLastWord(state.text), tail: getTail(state.text) })
+      const newState = Object.assign({}, state, { text: removeLastWord(state.text), tail: getTail(state.text) })
+
+      Cookie.set('text', newState.text)
+
+      return newState
     }
     case ROLLBACK_LINE: {
-      return Object.assign({}, state, { text: removeLine(state.text), tail: getTail(state.text) })
+      const newState = Object.assign({}, state, { text: removeLine(state.text), tail: getTail(state.text) })
+
+      Cookie.set('text', newState.text)
+
+      return newState
     }
     default:
       return state

@@ -13,6 +13,7 @@ const Settings = React.createClass({
 
   toggleVisibility(e) {
     e.preventDefault()
+
     this.props.toggleVisibility()
   },
 
@@ -20,6 +21,12 @@ const Settings = React.createClass({
     e.preventDefault()
 
     this.props.resetSettings()
+  },
+
+  clearText(e) {
+    e.preventDefault()
+
+    this.props.clearText()
   },
 
   render() {
@@ -30,12 +37,17 @@ const Settings = React.createClass({
         <ul className='settings'>
           <li>
             <a href='#' onClick={ this.toggleVisibility }>
-              Change colors
+              { displaySettings == 'none' ? `Change colors` : `Hide` }
             </a>
           </li>
           <li>
             <a href='#' onClick={ this.resetDefaults }>
               Reset
+            </a>
+          </li>
+          <li>
+            <a href='#' onClick={ this.clearText }>
+              Clear text
             </a>
           </li>
         </ul>

@@ -6,7 +6,7 @@ import Editor from '../components/editor';
 import Text from '../components/text';
 import Settings from '../components/settings';
 
-import { updateText, rollbackText, rollbackWord, rollbackLine } from '../actions/writer_actions';
+import { updateText, rollbackText, rollbackWord, rollbackLine, clearText } from '../actions/writer_actions';
 import { updateSettings, resetSettings, toggleVisibility } from '../actions/settings_actions.js'
 
 const App = React.createClass({
@@ -27,6 +27,7 @@ const App = React.createClass({
 
   onClick(e) {
     e.preventDefault();
+
     document.querySelector('.editor').focus();
   },
 
@@ -34,7 +35,7 @@ const App = React.createClass({
     const {
       text, tail, updateText, rollbackWord,
       rollbackText, rollbackLine, settings, updateSettings,
-      resetSettings, toggleVisibility } = this.props
+      resetSettings, toggleVisibility, clearText } = this.props
 
     return (
       <div className='main' onClick={(e) => this.onClick(e)}>
@@ -49,7 +50,8 @@ const App = React.createClass({
           settings={settings}
           updateSettings={updateSettings}
           resetSettings={resetSettings}
-          toggleVisibility={toggleVisibility} />
+          toggleVisibility={toggleVisibility}
+          clearText={clearText} />
       </div>
     )
   }
@@ -61,6 +63,7 @@ const mapDispatchToProps = (dispatch) => {
     rollbackText: () => dispatch(rollbackText()),
     rollbackWord: () => dispatch(rollbackWord()),
     rollbackLine: () => dispatch(rollbackLine()),
+    clearText: () => dispatch(clearText()),
     updateSettings: (settings) => dispatch(updateSettings(settings)),
     resetSettings: () => dispatch(resetSettings()),
     toggleVisibility: (key) => dispatch(toggleVisibility(key))
