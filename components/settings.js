@@ -44,7 +44,7 @@ const Settings = React.createClass({
             <p>Background color:</p>
              <ColorPicker
                type='chrome'
-               onChangeComplete={ this.updateBackground }
+               onChange={ this.updateBackground }
                color={ background } />
           </div>
 
@@ -52,7 +52,7 @@ const Settings = React.createClass({
             <p>Text color: </p>
              <ColorPicker
                type='chrome'
-               onChangeComplete={ this.updateText }
+               onChange={ this.updateText }
                color={ color } />
              </div>
         </div>
