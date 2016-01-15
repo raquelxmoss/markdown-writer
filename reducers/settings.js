@@ -1,3 +1,5 @@
+import { UPDATE_SETTINGS, RESET_SETTINGS } from '../actions/settings_actions';
+
 const defaultSettings = {
   fontFamily: 'Rokkitt',
   color: '#3b3b3b',
@@ -7,5 +9,12 @@ const defaultSettings = {
 }
 
 export const settings = (state = defaultSettings, action) => {
-  return state
+  switch(action.type) {
+    case UPDATE_SETTINGS:
+      return Object.assign({}, state, action.settings)
+    case RESET_SETTINGS:
+      return Object.assign({}, state, defaultSettings)
+    default:
+      return state
+  }
 }

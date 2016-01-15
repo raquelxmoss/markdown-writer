@@ -3,19 +3,29 @@ import ColorPicker from 'react-color';
 
 const Settings = React.createClass({
   updateBackground(color) {
-    document.body.style.background = `#${color.hex}`
+    this.props.updateSettings({ background: `#${color.hex}` })
   },
 
   updateText(color) {
-    document.body.style.color = `#${color.hex}`
+    this.props.updateSettings({ color: `#${color.hex}` })
   },
 
   render() {
     const { background, color } = this.props.settings
+
     return (
       <div>
-       <ColorPicker type="chrome" onChange={ this.updateBackground } />
-       <ColorPicker type="chrome" onChange={ this.updateText } />
+       <ColorPicker
+         type="chrome"
+         onChange={ this.updateBackground }
+         color={ background }
+         display={ this.props.displayBackgroundColorPicker } />
+
+       <ColorPicker
+         type="chrome"
+         onChange={ this.updateText }
+         color={ color }
+         display={ this.props.displayTextColorPicker } />
       </div>
     )
   }

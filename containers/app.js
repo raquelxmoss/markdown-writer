@@ -7,10 +7,15 @@ import Text from '../components/text';
 import Settings from '../components/settings';
 
 import { updateText, rollbackText, rollbackWord, rollbackLine } from '../actions/writer_actions';
+import { updateSettings, resetSettings } from '../actions/settings_actions.js'
 
 const App = React.createClass({
 
   componentDidMount() {
+    this.applySettings(this.props.settings)
+  },
+
+  componentWillUpdate() {
     this.applySettings(this.props.settings)
   },
 
@@ -26,7 +31,7 @@ const App = React.createClass({
   },
 
   render() {
-    const { text, tail, updateText, rollbackWord, rollbackText, rollbackLine, settings } = this.props
+    const { text, tail, updateText, rollbackWord, rollbackText, rollbackLine, settings, updateSettings, resetSettings } = this.props
     return (
       <div className='main' onClick={(e) => this.onClick(e)}>
         <Text text={text} />
@@ -36,7 +41,10 @@ const App = React.createClass({
           rollbackWord={rollbackWord}
           rollbackLine={rollbackLine}
           tail={tail} />
-        <Settings settings={ settings } />
+        <Settings
+          settings={settings}
+          updateSettings={updateSettings}
+          resetSettings={resetSettings} />
       </div>
     )
   }
@@ -47,7 +55,9 @@ const mapDispatchToProps = (dispatch) => {
     updateText: (text) => dispatch(updateText(text)),
     rollbackText: () => dispatch(rollbackText()),
     rollbackWord: () => dispatch(rollbackWord()),
-    rollbackLine: () => dispatch(rollbackLine())
+    rollbackLine: () => dispatch(rollbackLine()),
+    updateSettings: (settings) => dispatch(updateSettings(settings)),
+    resetSettings: () => dispatch(resetSettings())
   }
 }
 
