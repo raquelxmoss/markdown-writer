@@ -29,12 +29,23 @@ const Settings = React.createClass({
     this.props.clearText()
   },
 
+  saveFile(e) {
+    e.preventDefault()
+
+    this.props.saveFile()
+  },
+
   render() {
     const { background, color, displaySettings } = this.props.settings
 
     return (
       <div>
         <ul className='settings'>
+          <li>
+            <a href='#' onClick={ this.saveFile }>
+              Save
+            </a>
+          </li>
           <li>
             <a href='#' onClick={ this.toggleVisibility }>
               { displaySettings == 'none' ? `Change colors` : `Hide` }

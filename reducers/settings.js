@@ -11,7 +11,7 @@ const defaultSettings = {
   displaySettings: 'none'
 }
 
-export const settings = (state = JSON.parse(Cookie.get('settings')) || defaultSettings, action) => {
+export const settings = (state = Cookie.get('settings') || defaultSettings, action) => {
   switch(action.type) {
     case UPDATE_SETTINGS: {
       const newSettings = Object.assign({}, state, action.settings)

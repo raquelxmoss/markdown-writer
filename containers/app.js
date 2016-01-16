@@ -5,9 +5,11 @@ import _ from 'lodash';
 import Editor from '../components/editor';
 import Text from '../components/text';
 import Settings from '../components/settings';
+import FileList from '../components/file_list';
 
 import { updateText, rollbackText, rollbackWord, rollbackLine, clearText } from '../actions/writer_actions';
-import { updateSettings, resetSettings, toggleVisibility } from '../actions/settings_actions.js'
+import { updateSettings, resetSettings, toggleVisibility } from '../actions/settings_actions.js';
+import { saveFile } from '../actions/fileList_actions';
 
 const App = React.createClass({
 
@@ -31,11 +33,16 @@ const App = React.createClass({
     document.querySelector('.editor').focus();
   },
 
+  saveFile() {
+    this.props.saveFile(this.props.text)
+  },
+
   render() {
     const {
-      text, tail, updateText, rollbackWord,
+      text, tail, files, updateText, rollbackWord,
       rollbackText, rollbackLine, settings, updateSettings,
-      resetSettings, toggleVisibility, clearText } = this.props
+      resetSettings, toggleVisibility, clearText,
+      saveFile } = this.props
 
     return (
       <div className='main' onClick={(e) => this.onClick(e)}>
@@ -51,7 +58,10 @@ const App = React.createClass({
           updateSettings={updateSettings}
           resetSettings={resetSettings}
           toggleVisibility={toggleVisibility}
-          clearText={clearText} />
+          clearText={clearText}
+          saveFile={this.saveFile} />
+        <FileList
+          files={files} />
       </div>
     )
   }
@@ -66,7 +76,8 @@ const mapDispatchToProps = (dispatch) => {
     clearText: () => dispatch(clearText()),
     updateSettings: (settings) => dispatch(updateSettings(settings)),
     resetSettings: () => dispatch(resetSettings()),
-    toggleVisibility: (key) => dispatch(toggleVisibility(key))
+    toggleVisibility: (key) => dispatch(toggleVisibility(key)),
+    saveFile: (text) => dispatch(saveFile(text))
   }
 }
 
@@ -74,7 +85,8 @@ const mapStateToProps = (state) => {
   return {
     text: state.writer.text,
     tail: state.writer.tail,
-    settings: state.settings
+    settings: state.settings,
+    files: state.fileList
   }
 }
 
