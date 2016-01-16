@@ -5,6 +5,7 @@ import _ from 'lodash';
 import Editor from '../components/editor';
 import Text from '../components/text';
 import Settings from '../components/settings';
+import Timer from '../components/timer';
 
 const App = React.createClass({
 
@@ -35,7 +36,7 @@ const App = React.createClass({
         <Editor />
         <Settings />
         <p>Word count: {this.props.wordCount}</p>
-        <p>Duration: </p>
+        <p>Duration: <Timer /></p>
       </div>
     )
   }
