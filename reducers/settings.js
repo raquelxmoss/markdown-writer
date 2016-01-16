@@ -34,7 +34,7 @@ export const settings = (state = setState(), action) => {
     case TOGGLE_VISIBILITY: {
       const displaySettings = state.displaySettings === 'none' ? 'block' : 'none'
 
-      const newSettings = Object.assign({}, state, {displaySettings: displaySettings})
+      const newSettings = Object.assign({}, state, {displaySettings})
 
       Cookie.set('settings', newSettings)
 
