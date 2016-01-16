@@ -6,9 +6,6 @@ import Editor from '../components/editor';
 import Text from '../components/text';
 import Settings from '../components/settings';
 
-import { updateText, rollbackText, rollbackWord, rollbackLine, clearText } from '../actions/writer_actions';
-import { updateSettings, resetSettings, toggleVisibility } from '../actions/settings_actions.js'
-
 const App = React.createClass({
 
   componentDidMount() {
@@ -32,50 +29,20 @@ const App = React.createClass({
   },
 
   render() {
-    const {
-      text, tail, updateText, rollbackWord,
-      rollbackText, rollbackLine, settings, updateSettings,
-      resetSettings, toggleVisibility, clearText } = this.props
-
     return (
       <div className='main' onClick={(e) => this.onClick(e)}>
-        <Text text={text} />
-        <Editor
-          updateText={updateText}
-          rollbackText={rollbackText}
-          rollbackWord={rollbackWord}
-          rollbackLine={rollbackLine}
-          tail={tail} />
-        <Settings
-          settings={settings}
-          updateSettings={updateSettings}
-          resetSettings={resetSettings}
-          toggleVisibility={toggleVisibility}
-          clearText={clearText} />
+        <Text />
+        <Editor />
+        <Settings />
       </div>
     )
   }
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    updateText: (text) => dispatch(updateText(text)),
-    rollbackText: () => dispatch(rollbackText()),
-    rollbackWord: () => dispatch(rollbackWord()),
-    rollbackLine: () => dispatch(rollbackLine()),
-    clearText: () => dispatch(clearText()),
-    updateSettings: (settings) => dispatch(updateSettings(settings)),
-    resetSettings: () => dispatch(resetSettings()),
-    toggleVisibility: (key) => dispatch(toggleVisibility(key))
-  }
-}
-
 const mapStateToProps = (state) => {
   return {
-    text: state.writer.text,
-    tail: state.writer.tail,
     settings: state.settings
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default connect(mapStateToProps)(App)

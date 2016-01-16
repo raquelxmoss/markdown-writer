@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+import { updateText, rollbackText, rollbackWord, rollbackLine } from '../actions/writer_actions';
 
 const Editor = React.createClass({
   componentDidMount() {
@@ -12,7 +15,6 @@ const Editor = React.createClass({
   },
 
   updateText() {
-    const updateText = this.props
     const text = this.refs.editor.value
 
     this.props.updateText(text)
@@ -45,4 +47,19 @@ const Editor = React.createClass({
   }
 });
 
-export default Editor
+const mapStateToProps = (state) => {
+  return {
+    tail: state.writer.tail
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateText: (text) => dispatch(updateText(text)),
+    rollbackText: () => dispatch(rollbackText()),
+    rollbackWord: () => dispatch(rollbackWord()),
+    rollbackLine: () => dispatch(rollbackLine()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Editor)
