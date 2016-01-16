@@ -6,6 +6,7 @@ import Editor from '../components/editor';
 import Text from '../components/text';
 import Settings from '../components/settings';
 import Timer from '../components/timer';
+import FileList from '../components/file_list';
 
 const App = React.createClass({
 
@@ -41,6 +42,7 @@ const App = React.createClass({
         <Settings />
         <p>Word count: {this.props.wordCount}</p>
         <p>Duration: <Timer /></p>
+        <FileList />
       </div>
     )
   }

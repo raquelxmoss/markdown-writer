@@ -6,6 +6,7 @@ import _ from 'lodash';
 import { updateSettings, resetSettings, toggleVisibility } from '../actions/settings_actions.js'
 import { clearText } from '../actions/writer_actions';
 import { resetTimer } from '../actions/timer_actions';
+import { saveFile } from '../actions/file_list_actions';
 
 
 const Settings = React.createClass({
@@ -39,7 +40,7 @@ const Settings = React.createClass({
   saveFile(e) {
     e.preventDefault()
 
-    this.props.saveFile()
+    this.props.saveFile(this.props.text)
   },
 
   render() {
@@ -92,7 +93,10 @@ const Settings = React.createClass({
 });
 
 const mapStateToProps = (state) => {
-  return { settings: state.settings }
+  return {
+    settings: state.settings,
+    text: state.writer.text
+   }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -101,7 +105,8 @@ const mapDispatchToProps = (dispatch) => {
     updateSettings: (settings) => dispatch(updateSettings(settings)),
     resetSettings: () => dispatch(resetSettings()),
     toggleVisibility: (key) => dispatch(toggleVisibility(key)),
-    resetTimer: () => dispatch(resetTimer())
+    resetTimer: () => dispatch(resetTimer()),
+    saveFile: (text) => dispatch(saveFile(text))
   }
 }
 

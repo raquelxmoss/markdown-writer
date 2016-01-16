@@ -1,18 +1,23 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 const FileList = React.createClass({
   render() {
-    const files = JSON.parse(this.props.files)
+    const files = this.props.files
 
     return (
-      <div>
+      <ul>
         {files.length > 0 ?
           files.map((file, i) => {
-          return <p key={i}>{file.text}</p>
+          return <li key={i}>{file.text}</li>
         }) : ''}
-      </div>
+      </ul>
     )
   }
 });
 
-export default FileList
+const mapStateToProps = (state) => {
+  return { files: state.fileList }
+}
+
+export default connect(mapStateToProps)(FileList)

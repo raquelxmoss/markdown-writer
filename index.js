@@ -7,8 +7,9 @@ import App from './containers/App';
 import { writer } from './reducers/writer';
 import { settings } from './reducers/settings';
 import { timer } from './reducers/timer';
+import { fileList } from './reducers/file_list';
 
-const reducer = combineReducers({ writer, settings, timer })
+const reducer = combineReducers({ writer, settings, timer, fileList })
 const store = createStore(reducer)
 
 ReactDOM.render(
