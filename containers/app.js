@@ -34,6 +34,8 @@ const App = React.createClass({
         <Text />
         <Editor />
         <Settings />
+        <p>Word count: {this.props.wordCount}</p>
+        <p>Duration: </p>
       </div>
     )
   }
@@ -41,7 +43,8 @@ const App = React.createClass({
 
 const mapStateToProps = (state) => {
   return {
-    settings: state.settings
+    settings: state.settings,
+    wordCount: state.writer.wordCount
   }
 }
 
