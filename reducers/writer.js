@@ -39,38 +39,64 @@ const removeLine = (text) => {
   return newText
 }
 
-export const writer = (state = { text: Cookie.get('text') || '', tail: '' }, action) => {
+const wordCount = (text) => {
+  return _.compact(text.split(' ')).length
+}
+
+const setState = () => {
+  if (Cookie.get('text') === undefined) { return { text: '', tail: '', wordCount: 0 } }
+
+  const stateFromCookie = Cookie.get('text')
+
+  return {
+    text: stateFromCookie,
+    tail: '',
+    wordCount: wordCount(stateFromCookie)
+  }
+}
+
+export const writer = (state = setState(), action) => {
   switch (action.type) {
     case UPDATE_TEXT: {
-      const newState = Object.assign({}, state, { text: state.text += action.text, tail: '' })
+      const newText = state.text += action.text
+
+      const newState = Object.assign({}, state, { text: newText, tail: '', wordCount: wordCount(newText) })
 
       Cookie.set('text', newState.text)
 
       return newState
     }
     case CLEAR_TEXT: {
-      const newState = Object.assign({}, state, { text: '' })
+      const newText = ''
+
+      const newState = Object.assign({}, state, { text: newText, wordCount: wordCount(newText) })
 
       Cookie.set('text', newState.text)
 
       return newState
     }
     case ROLLBACK_TEXT: {
-      const newState = Object.assign({}, state, { text: trimText(state.text), tail: getTail(state.text) })
+      const newText = trimText(state.text)
+
+      const newState = Object.assign({}, state, { text: newText, tail: getTail(state.text), wordCount: wordCount(newText) })
 
       Cookie.set('text', newState.text)
 
       return newState
     }
     case ROLLBACK_WORD: {
-      const newState = Object.assign({}, state, { text: removeLastWord(state.text), tail: getTail(state.text) })
+      const newText = removeLastWord(state.text)
+
+      const newState = Object.assign({}, state, { text: newText, tail: getTail(state.text), wordCount: wordCount(newText) })
 
       Cookie.set('text', newState.text)
 
       return newState
     }
     case ROLLBACK_LINE: {
-      const newState = Object.assign({}, state, { text: removeLine(state.text), tail: getTail(state.text) })
+      const newText = removeLine(state.text)
+
+      const newState = Object.assign({}, state, { text: newText, tail: getTail(state.text), wordCount: wordCount(newText) })
 
       Cookie.set('text', newState.text)
 

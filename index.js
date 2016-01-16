@@ -6,9 +6,9 @@ import { Provider } from 'react-redux';
 import App from './containers/App';
 import { writer } from './reducers/writer';
 import { settings } from './reducers/settings';
-import { fileList } from './reducers/fileList';
+import { timer } from './reducers/timer';
 
-const reducer = combineReducers({ writer, settings, fileList })
+const reducer = combineReducers({ writer, settings, timer })
 const store = createStore(reducer)
 
 ReactDOM.render(

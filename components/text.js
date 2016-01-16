@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Showdown from 'showdown';
 
 const Text = React.createClass({
@@ -24,4 +25,8 @@ const Text = React.createClass({
   }
 });
 
-export default Text
+const mapStateToProps = (state) => {
+  return { text: state.writer.text }
+}
+
+export default connect(mapStateToProps)(Text)

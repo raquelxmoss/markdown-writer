@@ -1,6 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import ColorPicker from 'react-color';
 import _ from 'lodash';
+
+import { updateSettings, resetSettings, toggleVisibility } from '../actions/settings_actions.js'
+import { clearText } from '../actions/writer_actions';
+
 
 const Settings = React.createClass({
   updateBackground(color) {
@@ -84,4 +89,17 @@ const Settings = React.createClass({
   }
 });
 
-export default Settings
+const mapStateToProps = (state) => {
+  return { settings: state.settings }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    clearText: () => dispatch(clearText()),
+    updateSettings: (settings) => dispatch(updateSettings(settings)),
+    resetSettings: () => dispatch(resetSettings()),
+    toggleVisibility: (key) => dispatch(toggleVisibility(key))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Settings)
