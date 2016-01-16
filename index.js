@@ -19,3 +19,6 @@ ReactDOM.render(
   document.getElementById('app')
 )
 
+// Load file (w/state)
+// Show/hide file list
+// Truncate title

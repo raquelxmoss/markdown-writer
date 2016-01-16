@@ -1,16 +1,27 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import ellipsize from 'ellipsize';
+
+import { deleteFile } from '../actions/file_list_actions';
 
 const FileList = React.createClass({
-  render() {
-    const files = this.props.files
+  deleteFile (id) {
+    this.props.deleteFile(id)
+  },
 
+  render () {
+    const files = this.props.files
     return (
       <ul>
         {files.length > 0 ?
           files.map((file, i) => {
-          return <li key={i}>{file.text}</li>
-        }) : ''}
+            const title = ellipsize(file.text, 50)
+            return (
+              <li key={i}>
+                {title} <a href='#' onClick={ () => this.deleteFile(i)}>(delete)</a>
+              </li>
+            )
+          }) : ''}
       </ul>
     )
   }
@@ -20,4 +31,10 @@ const mapStateToProps = (state) => {
   return { files: state.fileList }
 }
 
-export default connect(mapStateToProps)(FileList)
+const mapDispatchToProps = (dispatch) => {
+  return {
+    deleteFile: (id) => dispatch(deleteFile(id))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(FileList)
