@@ -6,7 +6,7 @@ import { UPDATE_TIMER } from '../actions/timer_actions';
 const setState = () => {
   if (Cookie.get('timer') === undefined) { return 0 }
 
-  return Cookie.get('timer')
+  return parseInt(Cookie.get('timer'))
 }
 
 export const timer = (state = setState(), action) => {
