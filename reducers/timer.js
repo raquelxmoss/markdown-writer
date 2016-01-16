@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import Cookie from 'js-cookie';
 
-import { UPDATE_TIMER } from '../actions/timer_actions';
+import { UPDATE_TIMER, RESET_TIMER } from '../actions/timer_actions';
 
 const setState = () => {
   if (Cookie.get('timer') === undefined) { return 0 }
@@ -17,6 +17,12 @@ export const timer = (state = setState(), action) => {
       Cookie.set('timer', newState)
 
       return newState
+    }
+    case RESET_TIMER: {
+
+      Cookie.remove('timer')
+
+      return 0
     }
     default:
       return state

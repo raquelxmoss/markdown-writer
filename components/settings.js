@@ -5,6 +5,7 @@ import _ from 'lodash';
 
 import { updateSettings, resetSettings, toggleVisibility } from '../actions/settings_actions.js'
 import { clearText } from '../actions/writer_actions';
+import { resetTimer } from '../actions/timer_actions';
 
 
 const Settings = React.createClass({
@@ -32,6 +33,7 @@ const Settings = React.createClass({
     e.preventDefault()
 
     this.props.clearText()
+    this.props.resetTimer()
   },
 
   saveFile(e) {
@@ -98,7 +100,8 @@ const mapDispatchToProps = (dispatch) => {
     clearText: () => dispatch(clearText()),
     updateSettings: (settings) => dispatch(updateSettings(settings)),
     resetSettings: () => dispatch(resetSettings()),
-    toggleVisibility: (key) => dispatch(toggleVisibility(key))
+    toggleVisibility: (key) => dispatch(toggleVisibility(key)),
+    resetTimer: () => dispatch(resetTimer())
   }
 }
 
