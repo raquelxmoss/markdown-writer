@@ -40,7 +40,10 @@ const Settings = React.createClass({
   saveFile(e) {
     e.preventDefault()
 
-    this.props.saveFile({text: this.props.text, duration: this.props.timer})
+    const {files, text, timer, loadedFileId } = this.props
+    const id = this.props.loadedFileId ? loadedFileId : files.length
+
+    this.props.saveFile({text: text, duration: timer, id: id })
   },
 
   render() {
@@ -49,6 +52,11 @@ const Settings = React.createClass({
     return (
       <div>
         <ul className='settings'>
+          <li>
+            <a href='#' onClick={ this.clearText }>
+              New
+            </a>
+          </li>
           <li>
             <a href='#' onClick={ this.saveFile }>
               Save
@@ -62,11 +70,6 @@ const Settings = React.createClass({
           <li>
             <a href='#' onClick={ this.resetDefaults }>
               Reset
-            </a>
-          </li>
-          <li>
-            <a href='#' onClick={ this.clearText }>
-              Clear text
             </a>
           </li>
         </ul>
@@ -96,7 +99,9 @@ const mapStateToProps = (state) => {
   return {
     settings: state.settings,
     text: state.writer.text,
-    timer: state.timer
+    timer: state.timer,
+    files: state.fileList,
+    loadedFileId: state.writer.loadedFileId
    }
 }
 
@@ -107,7 +112,7 @@ const mapDispatchToProps = (dispatch) => {
     resetSettings: () => dispatch(resetSettings()),
     toggleVisibility: (key) => dispatch(toggleVisibility(key)),
     resetTimer: () => dispatch(resetTimer()),
-    saveFile: (text) => dispatch(saveFile(text))
+    saveFile: (file) => dispatch(saveFile(file))
   }
 }
 

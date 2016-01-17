@@ -13,9 +13,26 @@ const setState = () => {
   return []
 }
 
+const saveExistingFile = (state, updatedFile) => {
+  const removeFile = _.flatten([_.slice(state, 0, updatedFile.id), _.slice(state, updatedFile.id + 1, state.length)])
+
+  const newState = [...removeFile, updatedFile]
+
+  Cookie.set('files', newState)
+
+  return newState
+}
+
 export const fileList = (state = setState(), action) => {
   switch (action.type) {
     case SAVE_FILE: {
+      const fileId = state[action.file.id]
+      let file;
+
+      if (fileId) {
+        return saveExistingFile(state, action.file)
+      }
+
       const newState = [...state, action.file]
 
       Cookie.set('files', newState)
