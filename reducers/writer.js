@@ -44,11 +44,12 @@ const wordCount = (text) => {
 }
 
 const setState = () => {
-  if (Cookie.get('text') === undefined) { return { text: '', tail: '', wordCount: 0 } }
+  if (Cookie.get('text') === undefined) { return { loadedFileId: null, text: '', tail: '', wordCount: 0 } }
 
   const stateFromCookie = Cookie.get('text')
 
   return {
+    loadedFileId: Cookie.get('loadedFileId'),
     text: stateFromCookie,
     tail: '',
     wordCount: wordCount(stateFromCookie)
@@ -69,9 +70,10 @@ export const writer = (state = setState(), action) => {
     case CLEAR_TEXT: {
       const newText = ''
 
-      const newState = Object.assign({}, state, { text: newText, wordCount: wordCount(newText) })
+      const newState = Object.assign({}, state, { loadedFileId: null, text: newText, wordCount: wordCount(newText) })
 
       Cookie.set('text', newState.text)
+      Cookie.remove('loadedFileId')
 
       return newState
     }
@@ -105,9 +107,10 @@ export const writer = (state = setState(), action) => {
     case LOAD_FILE: {
       const file = action.file
 
-      const newState = Object.assign({}, state, {text: file.text, tail: '', wordCount: wordCount(file.text)})
+      const newState = Object.assign({}, state, {loadedFileId: file.id, text: file.text, tail: '', wordCount: wordCount(file.text)})
 
       Cookie.set('text', newState.text)
+      Cookie.set('loadedFileId', newState.loadedFileId)
 
       return newState
     }

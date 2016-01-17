@@ -5,6 +5,7 @@ export const saveFile = (file) => {
   return {
     type: SAVE_FILE,
     file: {
+      id: file.id,
       text: file.text,
       duration: file.duration,
       timestamp: new Date()

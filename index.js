@@ -11,7 +11,7 @@ import { fileList } from './reducers/file_list';
 
 const reducer = combineReducers({ writer, settings, timer, fileList })
 const store = createStore(reducer)
-
+console.log(store.getState())
 ReactDOM.render(
   <Provider store={store}>
     <App />
