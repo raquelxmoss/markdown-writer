@@ -4,10 +4,15 @@ import ellipsize from 'ellipsize';
 
 import { deleteFile } from '../actions/file_list_actions';
 import { toggleVisibility } from '../actions/settings_actions';
+import { loadFile } from '../actions/writer_actions';
 
 const FileList = React.createClass({
   deleteFile (id) {
     this.props.deleteFile(id)
+  },
+
+  loadFile(id) {
+    this.props.loadFile(this.props.files[id])
   },
 
   renderList(files) {
@@ -18,7 +23,10 @@ const FileList = React.createClass({
             const title = ellipsize(file.text, 50)
             return (
               <li key={i}>
-                {title} <a href='#' onClick={ () => this.deleteFile(i) }>(delete)</a>
+                <a href='#' onClick={ () => this.loadFile(i) }>
+                  {title}
+                </a>
+                <a href='#' onClick={ () => this.deleteFile(i) }>(delete)</a>
               </li>
             )
           })
@@ -58,7 +66,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     deleteFile: (id) => dispatch(deleteFile(id)),
-    toggleFiles: (setting) => dispatch(toggleVisibility(setting))
+    toggleFiles: (setting) => dispatch(toggleVisibility(setting)),
+    loadFile: (file) => dispatch(loadFile(file))
   }
 }
 

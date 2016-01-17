@@ -40,7 +40,7 @@ const Settings = React.createClass({
   saveFile(e) {
     e.preventDefault()
 
-    this.props.saveFile(this.props.text)
+    this.props.saveFile({text: this.props.text, duration: this.props.timer})
   },
 
   render() {
@@ -95,7 +95,8 @@ const Settings = React.createClass({
 const mapStateToProps = (state) => {
   return {
     settings: state.settings,
-    text: state.writer.text
+    text: state.writer.text,
+    timer: state.timer
    }
 }
 

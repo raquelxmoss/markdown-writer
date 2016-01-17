@@ -1,11 +1,12 @@
 export const SAVE_FILE = 'SAVE_FILE'
 export const DELETE_FILE = 'DELETE_FILE'
 
-export const saveFile = (text) => {
+export const saveFile = (file) => {
   return {
     type: SAVE_FILE,
     file: {
-      text,
+      text: file.text,
+      duration: file.duration,
       timestamp: new Date()
     }
   };

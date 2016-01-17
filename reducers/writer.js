@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import Cookie from 'js-cookie';
 
-import { UPDATE_TEXT, ROLLBACK_TEXT, ROLLBACK_WORD, ROLLBACK_LINE, CLEAR_TEXT } from '../actions/writer_actions';
+import { UPDATE_TEXT, ROLLBACK_TEXT, ROLLBACK_WORD, ROLLBACK_LINE, CLEAR_TEXT, LOAD_FILE } from '../actions/writer_actions';
 
 const trimText = (text) => {
   const chars = text.split('')
@@ -97,6 +97,15 @@ export const writer = (state = setState(), action) => {
       const newText = removeLine(state.text)
 
       const newState = Object.assign({}, state, { text: newText, tail: getTail(state.text), wordCount: wordCount(newText) })
+
+      Cookie.set('text', newState.text)
+
+      return newState
+    }
+    case LOAD_FILE: {
+      const file = action.file
+
+      const newState = Object.assign({}, state, {text: file.text, tail: '', wordCount: wordCount(file.text)})
 
       Cookie.set('text', newState.text)
 

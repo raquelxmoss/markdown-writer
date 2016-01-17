@@ -20,4 +20,3 @@ ReactDOM.render(
 )
 
 // Load file (w/state)
-// Show/hide file list
