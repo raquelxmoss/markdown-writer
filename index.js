@@ -18,5 +18,3 @@ ReactDOM.render(
   </Provider>,
   document.getElementById('app')
 )
-
-// Load file (w/state)
