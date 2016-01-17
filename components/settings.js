@@ -5,6 +5,8 @@ import _ from 'lodash';
 
 import { updateSettings, resetSettings, toggleVisibility } from '../actions/settings_actions.js'
 import { clearText } from '../actions/writer_actions';
+import { resetTimer } from '../actions/timer_actions';
+import { saveFile } from '../actions/file_list_actions';
 
 
 const Settings = React.createClass({
@@ -19,7 +21,7 @@ const Settings = React.createClass({
   toggleVisibility(e) {
     e.preventDefault()
 
-    this.props.toggleVisibility()
+    this.props.toggleVisibility('settings')
   },
 
   resetDefaults(e) {
@@ -32,6 +34,13 @@ const Settings = React.createClass({
     e.preventDefault()
 
     this.props.clearText()
+    this.props.resetTimer()
+  },
+
+  saveFile(e) {
+    e.preventDefault()
+
+    this.props.saveFile({text: this.props.text, duration: this.props.timer})
   },
 
   render() {
@@ -41,8 +50,13 @@ const Settings = React.createClass({
       <div>
         <ul className='settings'>
           <li>
+            <a href='#' onClick={ this.saveFile }>
+              Save
+            </a>
+          </li>
+          <li>
             <a href='#' onClick={ this.toggleVisibility }>
-              { displaySettings == 'none' ? `Change colors` : `Hide` }
+              { displaySettings.settings === 'none' ? `Change colors` : `Hide` }
             </a>
           </li>
           <li>
@@ -56,7 +70,7 @@ const Settings = React.createClass({
             </a>
           </li>
         </ul>
-        <div style={{display: displaySettings}}>
+        <div style={{display: displaySettings.settings}}>
           <div className='settings-panel'>
             <p>Background color:</p>
              <ColorPicker
@@ -79,7 +93,11 @@ const Settings = React.createClass({
 });
 
 const mapStateToProps = (state) => {
-  return { settings: state.settings }
+  return {
+    settings: state.settings,
+    text: state.writer.text,
+    timer: state.timer
+   }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -87,7 +105,9 @@ const mapDispatchToProps = (dispatch) => {
     clearText: () => dispatch(clearText()),
     updateSettings: (settings) => dispatch(updateSettings(settings)),
     resetSettings: () => dispatch(resetSettings()),
-    toggleVisibility: (key) => dispatch(toggleVisibility(key))
+    toggleVisibility: (key) => dispatch(toggleVisibility(key)),
+    resetTimer: () => dispatch(resetTimer()),
+    saveFile: (text) => dispatch(saveFile(text))
   }
 }
 

@@ -15,8 +15,9 @@ export const resetSettings = (settings) => {
   }
 }
 
-export const toggleVisibility = () => {
+export const toggleVisibility = (setting) => {
   return {
     type: TOGGLE_VISIBILITY,
+    setting
   }
 }

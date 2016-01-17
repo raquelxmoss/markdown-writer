@@ -8,7 +8,7 @@ const defaultSettings = {
   lineHeight: '120%',
   fontSize: '1.3em',
   background: '#fefefe',
-  displaySettings: 'none'
+  displaySettings: { settings: 'none', fileList: 'block' },
 }
 
 const setState = () => {
@@ -32,9 +32,18 @@ export const settings = (state = setState(), action) => {
       return Object.assign({}, state, defaultSettings)
     }
     case TOGGLE_VISIBILITY: {
-      const displaySettings = state.displaySettings === 'none' ? 'block' : 'none'
+      const setting = action.setting
+      let displaySettings = {}
 
-      const newSettings = Object.assign({}, state, {displaySettings})
+      if (state.displaySettings[setting] === 'none') {
+        displaySettings[setting] = 'block'
+      } else {
+        displaySettings[setting] = 'none'
+      }
+
+      const newDisplaySettings = Object.assign({}, state.displaySettings, displaySettings)
+
+      const newSettings = Object.assign({}, state, {displaySettings: newDisplaySettings})
 
       Cookie.set('settings', newSettings)
 
