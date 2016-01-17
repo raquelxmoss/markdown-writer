@@ -21,7 +21,7 @@ const Settings = React.createClass({
   toggleVisibility(e) {
     e.preventDefault()
 
-    this.props.toggleVisibility()
+    this.props.toggleVisibility('settings')
   },
 
   resetDefaults(e) {
@@ -56,7 +56,7 @@ const Settings = React.createClass({
           </li>
           <li>
             <a href='#' onClick={ this.toggleVisibility }>
-              { displaySettings == 'none' ? `Change colors` : `Hide` }
+              { displaySettings.settings === 'none' ? `Change colors` : `Hide` }
             </a>
           </li>
           <li>
@@ -70,7 +70,7 @@ const Settings = React.createClass({
             </a>
           </li>
         </ul>
-        <div style={{display: displaySettings}}>
+        <div style={{display: displaySettings.settings}}>
           <div className='settings-panel'>
             <p>Background color:</p>
              <ColorPicker
