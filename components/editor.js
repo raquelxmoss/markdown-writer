@@ -1,7 +1,7 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from 'react'
+import { connect } from 'react-redux'
 
-import { updateText, rollbackText, rollbackWord, rollbackLine } from '../actions/writer_actions';
+import { updateText, rollbackText, rollbackWord, rollbackLine } from '../actions/writer_actions'
 
 const Editor = React.createClass({
   componentDidMount() {
@@ -45,7 +45,7 @@ const Editor = React.createClass({
       </div>
     )
   }
-});
+})
 
 const mapStateToProps = (state) => {
   return {

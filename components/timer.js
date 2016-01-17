@@ -1,15 +1,15 @@
-import React from 'react';
-import { connect } from 'react-redux';
+import React from 'react'
+import { connect } from 'react-redux'
 
-import { updateTimer } from '../actions/timer_actions';
+import { updateTimer } from '../actions/timer_actions'
 
 const Timer = React.createClass({
   componentDidMount() {
-    this.timer = setInterval(this.tick, 60000);
+    this.timer = setInterval(this.tick, 60000)
   },
 
   componentWillUnmount() {
-    clearInterval(this.timer);
+    clearInterval(this.timer)
   },
 
   tick() {
@@ -17,9 +17,9 @@ const Timer = React.createClass({
   },
 
   render() {
-    return <span>{this.props.timer} minutes</span>;
+    return <span>{this.props.timer} minutes</span>
   }
-});
+})
 
 const mapStateToProps = (state) => {
   return { timer: state.timer }

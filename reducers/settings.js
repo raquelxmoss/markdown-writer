@@ -1,6 +1,6 @@
-import Cookie from 'js-cookie';
+import Cookie from 'js-cookie'
 
-import { UPDATE_SETTINGS, RESET_SETTINGS, TOGGLE_VISIBILITY } from '../actions/settings_actions';
+import { UPDATE_SETTINGS, RESET_SETTINGS, TOGGLE_VISIBILITY } from '../actions/settings_actions'
 
 const defaultSettings = {
   fontFamily: 'Rokkitt',
@@ -22,7 +22,7 @@ export const settings = (state = setState(), action) => {
     case UPDATE_SETTINGS: {
       const newSettings = Object.assign({}, state, action.settings)
 
-      Cookie.set('settings', newSettings);
+      Cookie.set('settings', newSettings)
 
       return newSettings
     }

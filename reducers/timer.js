@@ -1,7 +1,7 @@
-import _ from 'lodash';
-import Cookie from 'js-cookie';
+import _ from 'lodash'
+import Cookie from 'js-cookie'
 
-import { UPDATE_TIMER, RESET_TIMER, LOAD_TIMER } from '../actions/timer_actions';
+import { UPDATE_TIMER, RESET_TIMER, LOAD_TIMER } from '../actions/timer_actions'
 
 const setState = () => {
   if (Cookie.get('timer') === undefined) { return 0 }

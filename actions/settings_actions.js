@@ -6,7 +6,7 @@ export const updateSettings = (settings) => {
   return {
     type: UPDATE_SETTINGS,
     settings
-  };
+  }
 }
 
 export const resetSettings = (settings) => {

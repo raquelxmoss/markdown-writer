@@ -1,12 +1,12 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import ColorPicker from 'react-color';
-import _ from 'lodash';
+import React from 'react'
+import { connect } from 'react-redux'
+import ColorPicker from 'react-color'
+import _ from 'lodash'
 
 import { updateSettings, resetSettings, toggleVisibility } from '../actions/settings_actions.js'
-import { clearText } from '../actions/writer_actions';
-import { resetTimer } from '../actions/timer_actions';
-import { saveFile } from '../actions/file_list_actions';
+import { clearText } from '../actions/writer_actions'
+import { resetTimer } from '../actions/timer_actions'
+import { saveFile } from '../actions/file_list_actions'
 
 
 const Settings = React.createClass({
@@ -93,7 +93,7 @@ const Settings = React.createClass({
       </div>
     )
   }
-});
+})
 
 const mapStateToProps = (state) => {
   return {

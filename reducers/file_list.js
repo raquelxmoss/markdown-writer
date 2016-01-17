@@ -1,7 +1,7 @@
-import Cookie from 'js-cookie';
-import _ from 'lodash';
+import Cookie from 'js-cookie'
+import _ from 'lodash'
 
-import { SAVE_FILE, DELETE_FILE } from '../actions/file_list_actions';
+import { SAVE_FILE, DELETE_FILE } from '../actions/file_list_actions'
 
 const initialState = Cookie.get('files')
 
@@ -27,7 +27,7 @@ export const fileList = (state = setState(), action) => {
   switch (action.type) {
     case SAVE_FILE: {
       const fileId = state[action.file.id]
-      let file;
+      let file
 
       if (fileId) {
         return saveExistingFile(state, action.file)

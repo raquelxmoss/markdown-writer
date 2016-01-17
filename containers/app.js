@@ -1,12 +1,12 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import _ from 'lodash';
+import React from 'react'
+import { connect } from 'react-redux'
+import _ from 'lodash'
 
-import Editor from '../components/editor';
-import Text from '../components/text';
-import Settings from '../components/settings';
-import Timer from '../components/timer';
-import FileList from '../components/file_list';
+import Editor from '../components/editor'
+import Text from '../components/text'
+import Settings from '../components/settings'
+import Timer from '../components/timer'
+import FileList from '../components/file_list'
 
 const App = React.createClass({
 
@@ -21,13 +21,13 @@ const App = React.createClass({
   applySettings(settings) {
     _.each(settings, function(value, key) {
       document.body.style[key] = value
-    });
+    })
   },
 
   onClick(e) {
-    e.preventDefault();
+    e.preventDefault()
 
-    document.querySelector('.editor').focus();
+    document.querySelector('.editor').focus()
   },
 
   saveFile() {
@@ -46,7 +46,7 @@ const App = React.createClass({
       </div>
     )
   }
-});
+})
 
 const mapStateToProps = (state) => {
   return {

@@ -1,6 +1,6 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import Showdown from 'showdown';
+import React from 'react'
+import { connect } from 'react-redux'
+import Showdown from 'showdown'
 
 const Text = React.createClass({
   renderText() {
@@ -12,7 +12,7 @@ const Text = React.createClass({
         parseImgDimensions: true
       }
     )
-    return {__html: converter.makeHtml(this.props.text)};
+    return {__html: converter.makeHtml(this.props.text)}
   },
 
   render() {
@@ -23,7 +23,7 @@ const Text = React.createClass({
       </div>
     )
   }
-});
+})
 
 const mapStateToProps = (state) => {
   return { text: state.writer.text }
