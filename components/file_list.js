@@ -5,6 +5,7 @@ import ellipsize from 'ellipsize';
 import { deleteFile } from '../actions/file_list_actions';
 import { toggleVisibility } from '../actions/settings_actions';
 import { loadFile } from '../actions/writer_actions';
+import { loadTimer } from '../actions/timer_actions';
 
 const FileList = React.createClass({
   deleteFile (id) {
@@ -13,6 +14,7 @@ const FileList = React.createClass({
 
   loadFile(id) {
     this.props.loadFile(this.props.files[id])
+    this.props.loadTimer(this.props.files[id].duration)
   },
 
   renderList(files) {
@@ -67,7 +69,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     deleteFile: (id) => dispatch(deleteFile(id)),
     toggleFiles: (setting) => dispatch(toggleVisibility(setting)),
-    loadFile: (file) => dispatch(loadFile(file))
+    loadFile: (file) => dispatch(loadFile(file)),
+    loadTimer: (startTime) => dispatch(loadTimer(startTime))
   }
 }
 
