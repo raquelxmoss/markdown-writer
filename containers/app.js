@@ -50,7 +50,7 @@ const App = React.createClass({
 
 const mapStateToProps = (state) => {
   return {
-    settings: state.settings.settings,
+    settings: state.settings,
     wordCount: state.writer.wordCount
   }
 }
