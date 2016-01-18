@@ -1,7 +1,7 @@
-import _ from 'lodash';
-import Cookie from 'js-cookie';
+import _ from 'lodash'
+import Cookie from 'js-cookie'
 
-import { UPDATE_TEXT, ROLLBACK_TEXT, ROLLBACK_WORD, ROLLBACK_LINE, CLEAR_TEXT, LOAD_FILE } from '../actions/writer_actions';
+import { UPDATE_TEXT, ROLLBACK_TEXT, ROLLBACK_WORD, ROLLBACK_LINE, CLEAR_TEXT, LOAD_FILE } from '../actions/writer_actions'
 
 const trimText = (text) => {
   const chars = text.split('')

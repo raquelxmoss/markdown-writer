@@ -10,7 +10,7 @@ export const saveFile = (file) => {
       duration: file.duration,
       timestamp: new Date()
     }
-  };
+  }
 }
 
 export const deleteFile = (id) => {

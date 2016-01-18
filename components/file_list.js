@@ -1,11 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import ellipsize from 'ellipsize';
+import React from 'react'
+import { connect } from 'react-redux'
+import ellipsize from 'ellipsize'
 
-import { deleteFile } from '../actions/file_list_actions';
-import { toggleVisibility } from '../actions/settings_actions';
-import { loadFile } from '../actions/writer_actions';
-import { loadTimer } from '../actions/timer_actions';
+import { deleteFile } from '../actions/file_list_actions'
+import { toggleVisibility } from '../actions/settings_actions'
+import { loadFile } from '../actions/writer_actions'
+import { loadTimer } from '../actions/timer_actions'
 
 const FileList = React.createClass({
   deleteFile (id) {
@@ -56,7 +56,7 @@ const FileList = React.createClass({
       </div>
     )
   }
-});
+})
 
 const mapStateToProps = (state) => {
   return {

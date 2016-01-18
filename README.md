@@ -17,6 +17,7 @@ Markdown Writer is a text editor that renders markdown as you go. Live demo comi
 
 - Login with Google/Github/Facebook
 - Export to .md, .txt, or .html
+- Import/Export as JSON
 - Choose from a list of fonts
 - Choose link colour
 - See a list of your entries and select to update/delete
