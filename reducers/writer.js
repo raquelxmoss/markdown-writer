@@ -59,7 +59,7 @@ const setState = () => {
 export const writer = (state = setState(), action) => {
   switch (action.type) {
     case UPDATE_TEXT: {
-      const newText = state.text += action.text
+      const newText = state.text + action.text
 
       const newState = Object.assign({}, state, { text: newText, tail: '', wordCount: wordCount(newText) })
 
