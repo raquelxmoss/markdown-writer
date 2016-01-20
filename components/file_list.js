@@ -28,7 +28,8 @@ const FileList = React.createClass({
                 <a href='#' onClick={ () => this.loadFile(i) }>
                   {title}
                 </a>
-                <a href='#' onClick={ () => this.deleteFile(i) }>(delete)</a>
+                  <a href='#' onClick={ () => this.deleteFile(i) }><i className="fa fa-trash-o"></i>
+</a>
               </li>
             )
           })

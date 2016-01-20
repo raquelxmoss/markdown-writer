@@ -1,4 +1,4 @@
-# Markdown Writer
+# [Markdown Writer](http://raquelxmoss.github.io/markdown-writer/)
 
 Markdown Writer is a text editor that renders markdown as you go. Live demo coming soon.
 
@@ -23,6 +23,7 @@ Markdown Writer is a text editor that renders markdown as you go. Live demo comi
 - See a list of your entries and select to update/delete
 - Share to social media
 - Autosaving (& save when you hit cmd + s)
+- Pause timer when tab is inactive
 
 ## Thank You
 - To the fantastic [Internet Typewriter](http://writer.bighugelabs.com) for being _almost_ what I needed, but not quite.
