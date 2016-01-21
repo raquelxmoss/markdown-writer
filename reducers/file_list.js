@@ -31,9 +31,9 @@ const saveExistingFile = (state, updatedFile) => {
 export const fileList = (state = setState(), action) => {
   switch (action.type) {
     case SAVE_FILE: {
-      const fileId = state[action.file.id].id
+      const file = state[action.file.id]
 
-      if (fileId) {
+      if (file) {
         return saveExistingFile(state, action.file)
       }
 
