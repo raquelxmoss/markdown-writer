@@ -6,6 +6,7 @@
   "scripts": {
     "watch": "watchify index.js -o bundle.js -v -t babelify",
     "build": "browserify index.js -o bundle.js -t babelify",
+    "test": "mocha -c -w './spec/*.js' --compilers js:babel-core/register",
     "start": "budo index.js:bundle.js --live='*.css' -- -t babelify | garnish"
   },
   "keywords": [
@@ -32,7 +33,9 @@
     "babelify": "^7.2.0",
     "browserify": "^13.0.0",
     "budo": "^6.1.0",
+    "expect": "^1.13.4",
     "garnish": "^4.1.1",
+    "mocha": "^2.3.4",
     "watchify": "^3.4.0"
   }
 }
