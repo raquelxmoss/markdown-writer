@@ -14,7 +14,7 @@ const setState = () => {
 }
 
 const saveExistingFile = (state, updatedFile) => {
-  let newState
+  let newState;
 
   if (state.length === 0) {
     newState = [updatedFile]

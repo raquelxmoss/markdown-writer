@@ -4,7 +4,7 @@ import ColorPicker from 'react-color'
 import _ from 'lodash'
 
 import { updateSettings, resetSettings, toggleVisibility } from '../actions/settings_actions.js'
-import { clearText } from '../actions/writer_actions'
+import { clearText, loadFile } from '../actions/writer_actions'
 import { resetTimer } from '../actions/timer_actions'
 import { saveFile } from '../actions/file_list_actions'
 
@@ -41,9 +41,12 @@ const Settings = React.createClass({
     e.preventDefault()
 
     const {files, text, timer, loadedFileId } = this.props
-    const id = this.props.loadedFileId ? loadedFileId : files.length
+    const id = this.props.loadedFileId === null ? files.length : loadedFileId
 
-    this.props.saveFile({text: text, duration: timer, id: id })
+    const file = {text: text, duration: timer, id: id }
+
+    this.props.saveFile(file)
+    this.props.loadFile(file)
   },
 
   render() {
@@ -112,7 +115,8 @@ const mapDispatchToProps = (dispatch) => {
     resetSettings: () => dispatch(resetSettings()),
     toggleVisibility: (key) => dispatch(toggleVisibility(key)),
     resetTimer: () => dispatch(resetTimer()),
-    saveFile: (file) => dispatch(saveFile(file))
+    saveFile: (file) => dispatch(saveFile(file)),
+    loadFile: (file) => dispatch(loadFile(file))
   }
 }
 
