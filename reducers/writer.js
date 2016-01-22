@@ -47,6 +47,7 @@ const setState = () => {
   if (Cookie.get('text') === undefined) { return { loadedFileId: null, text: '', tail: '', wordCount: 0 } }
 
   const stateFromCookie = Cookie.get('text')
+  const loadedFileId = Cookie.get('loadedFileId') ? Cookie.get('loadedFileId') : null
 
   return {
     loadedFileId: Cookie.get('loadedFileId'),
@@ -105,6 +106,7 @@ export const writer = (state = setState(), action) => {
       return newState
     }
     case LOAD_FILE: {
+
       const file = action.file
 
       const newState = Object.assign({}, state, {loadedFileId: file.id, text: file.text, tail: '', wordCount: wordCount(file.text)})
