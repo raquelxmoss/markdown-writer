@@ -19,7 +19,7 @@ const FileList = React.createClass({
 
   renderList(files) {
     return(
-      <ul>
+      <ul className='entries'>
         {files.length > 0 ?
           files.map((file, i) => {
             const title = ellipsize(file.text, 50)
@@ -41,7 +41,8 @@ const FileList = React.createClass({
   renderFileToggler(state) {
     return(
       <a href='#' onClick={() => this.props.toggleFiles('fileList')}>
-        {state === 'block' ? '(hide)' : '(show)'}
+        {state === 'block' ? <i className="fa fa-caret-up"></i> : <i className="fa fa-caret-down"></i>
+}
       </a>
     )
   },
@@ -50,7 +51,7 @@ const FileList = React.createClass({
     const files = this.props.files
     return (
       <div>
-        <h3>Entries {this.renderFileToggler(this.props.showEntries)}</h3>
+        <h4>Entries {this.renderFileToggler(this.props.showEntries)}</h4>
         <div style={{display: this.props.showEntries}}>
           {this.renderList(files)}
         </div>

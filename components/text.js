@@ -17,7 +17,7 @@ const Text = React.createClass({
 
   render() {
     return (
-      <div>
+      <div className='text'>
         {this.props.text === '' ? 'Just write...' : ''}
         <div dangerouslySetInnerHTML={this.renderText()}></div>
       </div>
