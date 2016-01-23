@@ -1,6 +1,7 @@
 body {
   font-family: 'Rockitt', Georgia, serif;
 }
+
 .container {
   width: 40em;
   max-width: 100vw;
@@ -16,8 +17,8 @@ body {
 }
 
 .text {
-  height: 80vh;
-  overflow: scroll;
+  height: 90vh;
+  overflow-y: auto;
 }
 
 textarea {
