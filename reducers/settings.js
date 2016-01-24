@@ -9,7 +9,8 @@ const defaultSettings = {
   fontSize: '1.3em',
   background: '#fefefe',
   displaySettings: { settings: 'none', fileList: 'block' },
-  activeSetting: 'background'
+  activeSetting: 'background',
+  linkColor: '#DAA520'
 }
 
 const setState = () => {
