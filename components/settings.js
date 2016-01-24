@@ -108,7 +108,7 @@ const Settings = React.createClass({
             <ColorPicker
               type={'chrome'}
               onChange={ this.updateColorSettings }
-              color={ this.activeSetting() }/>
+              color={ this.activeColor() }/>
           </div>
         </div>
       </div>

@@ -7,7 +7,7 @@ Markdown Writer is a text editor that renders markdown as you go. Live demo comi
 ## Features
 
 - As-you-go markdown rendering
-- Set your own background and text colours
+- Set your own background, text, and link colours
 - Text and settings are saved in a cookie, so you can come back to your work at any time
 - Word count and duration
 - Create and save entries
@@ -19,7 +19,6 @@ Markdown Writer is a text editor that renders markdown as you go. Live demo comi
 - Export to .md, .txt, or .html
 - Import/Export as JSON
 - Choose from a list of fonts
-- Choose link colour
 - See a list of your entries and select to update/delete
 - Share to social media
 - Autosaving (& save when you hit cmd + s)
