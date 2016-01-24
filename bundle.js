@@ -35,6 +35,7 @@ Object.defineProperty(exports, "__esModule", {
 var UPDATE_SETTINGS = exports.UPDATE_SETTINGS = 'UPDATE_SETTINGS';
 var RESET_SETTINGS = exports.RESET_SETTINGS = 'RESET_SETTINGS';
 var TOGGLE_VISIBILITY = exports.TOGGLE_VISIBILITY = 'TOGGLE_VISIBILITY';
+var CHANGE_ACTIVE_SETTING = exports.CHANGE_ACTIVE_SETTING = 'CHANGE_ACTIVE_SETTING';
 
 var updateSettings = exports.updateSettings = function updateSettings(settings) {
   return {
@@ -52,6 +53,13 @@ var resetSettings = exports.resetSettings = function resetSettings(settings) {
 var toggleVisibility = exports.toggleVisibility = function toggleVisibility(setting) {
   return {
     type: TOGGLE_VISIBILITY,
+    setting: setting
+  };
+};
+
+var changeActiveSetting = exports.changeActiveSetting = function changeActiveSetting(setting) {
+  return {
+    type: CHANGE_ACTIVE_SETTING,
     setting: setting
   };
 };
@@ -266,7 +274,7 @@ var FileList = _react2.default.createClass({
 
     return _react2.default.createElement(
       'ul',
-      null,
+      { className: 'entries' },
       files.length > 0 ? files.map(function (file, i) {
         var title = (0, _ellipsize2.default)(file.text, 50);
         return _react2.default.createElement(
@@ -298,7 +306,7 @@ var FileList = _react2.default.createClass({
       { href: '#', onClick: function onClick() {
           return _this2.props.toggleFiles('fileList');
         } },
-      state === 'block' ? '(hide)' : '(show)'
+      state === 'block' ? _react2.default.createElement('i', { className: 'fa fa-caret-up' }) : _react2.default.createElement('i', { className: 'fa fa-caret-down' })
     );
   },
   render: function render() {
@@ -307,7 +315,7 @@ var FileList = _react2.default.createClass({
       'div',
       null,
       _react2.default.createElement(
-        'h3',
+        'h4',
         null,
         'Entries ',
         this.renderFileToggler(this.props.showEntries)
@@ -380,11 +388,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var Settings = _react2.default.createClass({
   displayName: 'Settings',
-  updateBackground: function updateBackground(color) {
-    this.props.updateSettings({ background: '#' + color.hex });
-  },
-  updateText: function updateText(color) {
-    this.props.updateSettings({ color: '#' + color.hex });
+  updateColorSettings: function updateColorSettings(color) {
+    var activeSetting = this.props.settings.activeSetting;
+
+    if (activeSetting === 'background') {
+      this.props.updateSettings({ background: '#' + color.hex });
+    } else if (activeSetting === 'color') {
+      this.props.updateSettings({ color: '#' + color.hex });
+    } else if (activeSetting === 'linkColor') {
+      this.props.updateSettings({ linkColor: '#' + color.hex });
+    }
   },
   toggleVisibility: function toggleVisibility(e) {
     e.preventDefault();
@@ -411,22 +424,33 @@ var Settings = _react2.default.createClass({
     var timer = _props.timer;
     var loadedFileId = _props.loadedFileId;
 
-    var id = this.props.loadedFileId ? loadedFileId : files.length;
+    var id = this.props.loadedFileId === null ? files.length : loadedFileId;
 
-    this.props.saveFile({ text: text, duration: timer, id: id });
+    var file = { text: text, duration: timer, id: id };
+
+    this.props.saveFile(file);
+    this.props.loadFile(file);
+  },
+  activeColor: function activeColor() {
+    var activeSetting = this.props.settings.activeSetting;
+
+    return this.props.settings[activeSetting];
   },
   render: function render() {
+    var _this = this;
+
     var _props$settings = this.props.settings;
     var background = _props$settings.background;
     var color = _props$settings.color;
     var displaySettings = _props$settings.displaySettings;
+    var activeSetting = _props$settings.activeSetting;
 
     return _react2.default.createElement(
       'div',
-      null,
+      { className: 'settings' },
       _react2.default.createElement(
         'ul',
-        { className: 'settings' },
+        null,
         _react2.default.createElement(
           'li',
           null,
@@ -473,25 +497,38 @@ var Settings = _react2.default.createClass({
           _react2.default.createElement(
             'p',
             null,
-            'Background color:'
+            _react2.default.createElement(
+              'li',
+              { className: 'color-setting',
+                style: activeSetting === 'background' ? { color: 'goldenrod' } : {},
+                onClick: function onClick() {
+                  return _this.props.changeActiveSetting('background');
+                } },
+              'Background color'
+            ),
+            _react2.default.createElement(
+              'li',
+              { className: 'color-setting',
+                style: activeSetting === 'color' ? { color: 'goldenrod' } : {},
+                onClick: function onClick() {
+                  return _this.props.changeActiveSetting('color');
+                } },
+              'Text color'
+            ),
+            _react2.default.createElement(
+              'li',
+              { className: 'color-setting',
+                style: activeSetting === 'linkColor' ? { color: 'goldenrod' } : {},
+                onClick: function onClick() {
+                  return _this.props.changeActiveSetting('linkColor');
+                } },
+              'Link color'
+            )
           ),
           _react2.default.createElement(_reactColor2.default, {
             type: 'chrome',
-            onChange: this.updateBackground,
-            color: background })
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'settings-panel' },
-          _react2.default.createElement(
-            'p',
-            null,
-            'Text color: '
-          ),
-          _react2.default.createElement(_reactColor2.default, {
-            type: 'chrome',
-            onChange: this.updateText,
-            color: color })
+            onChange: this.updateColorSettings,
+            color: this.activeSetting() })
         )
       )
     );
@@ -527,6 +564,12 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
     },
     saveFile: function saveFile(file) {
       return dispatch((0, _file_list_actions.saveFile)(file));
+    },
+    loadFile: function loadFile(file) {
+      return dispatch((0, _writer_actions.loadFile)(file));
+    },
+    changeActiveSetting: function changeActiveSetting(setting) {
+      return dispatch((0, _settings_actions.changeActiveSetting)(setting));
     }
   };
 };
@@ -566,7 +609,7 @@ var Text = _react2.default.createClass({
   render: function render() {
     return _react2.default.createElement(
       'div',
-      null,
+      { className: 'text' },
       this.props.text === '' ? 'Just write...' : '',
       _react2.default.createElement('div', { dangerouslySetInnerHTML: this.renderText() })
     );
@@ -680,6 +723,10 @@ var App = _react2.default.createClass({
     _lodash2.default.each(settings, function (value, key) {
       document.body.style[key] = value;
     });
+
+    _lodash2.default.each(document.querySelectorAll('a'), function (link) {
+      link.style.color = settings.linkColor;
+    });
   },
   onClick: function onClick(e) {
     e.preventDefault();
@@ -701,16 +748,15 @@ var App = _react2.default.createClass({
       _react2.default.createElement(_editor2.default, null),
       _react2.default.createElement(_settings2.default, null),
       _react2.default.createElement(
-        'p',
-        null,
-        'Word count: ',
-        this.props.wordCount
-      ),
-      _react2.default.createElement(
-        'p',
-        null,
-        'Duration: ',
-        _react2.default.createElement(_timer2.default, null)
+        'div',
+        { className: 'metadata' },
+        _react2.default.createElement(
+          'p',
+          null,
+          this.props.wordCount,
+          ' words | ',
+          _react2.default.createElement(_timer2.default, null)
+        )
       ),
       _react2.default.createElement(_file_list2.default, null)
     );
@@ -43985,9 +44031,9 @@ var fileList = exports.fileList = function fileList() {
   switch (action.type) {
     case _file_list_actions.SAVE_FILE:
       {
-        var fileId = state[action.file.id].id;
+        var file = state[action.file.id];
 
-        if (fileId) {
+        if (file) {
           return saveExistingFile(state, action.file);
         }
 
@@ -44032,7 +44078,9 @@ var defaultSettings = {
   lineHeight: '120%',
   fontSize: '1.3em',
   background: '#fefefe',
-  displaySettings: { settings: 'none', fileList: 'block' }
+  displaySettings: { settings: 'none', fileList: 'block' },
+  activeSetting: 'background',
+  linkColor: '#DAA520'
 };
 
 var setState = function setState() {
@@ -44080,6 +44128,10 @@ var settings = exports.settings = function settings() {
         _jsCookie2.default.set('settings', newSettings);
 
         return newSettings;
+      }
+    case _settings_actions.CHANGE_ACTIVE_SETTING:
+      {
+        return Object.assign({}, state, { activeSetting: action.setting });
       }
     default:
       return state;
@@ -44215,6 +44267,7 @@ var setState = function setState() {
   }
 
   var stateFromCookie = _jsCookie2.default.get('text');
+  var loadedFileId = _jsCookie2.default.get('loadedFileId') ? _jsCookie2.default.get('loadedFileId') : null;
 
   return {
     loadedFileId: _jsCookie2.default.get('loadedFileId'),
@@ -44282,6 +44335,7 @@ var writer = exports.writer = function writer() {
       }
     case _writer_actions.LOAD_FILE:
       {
+
         var file = action.file;
 
         var newState = Object.assign({}, state, { loadedFileId: file.id, text: file.text, tail: '', wordCount: wordCount(file.text) });
