@@ -22,6 +22,10 @@ const App = React.createClass({
     _.each(settings, function(value, key) {
       document.body.style[key] = value
     })
+
+    _.each(document.querySelectorAll('a'), function(link) {
+      link.style.color = settings.linkColor
+    })
   },
 
   onClick(e) {
@@ -40,8 +44,9 @@ const App = React.createClass({
         <Text />
         <Editor />
         <Settings />
-        <p>Word count: {this.props.wordCount}</p>
-        <p>Duration: <Timer /></p>
+        <div className='metadata'>
+          <p>{this.props.wordCount} words | <Timer /></p>
+        </div>
         <FileList />
       </div>
     )

@@ -3,19 +3,23 @@ import { connect } from 'react-redux'
 import ColorPicker from 'react-color'
 import _ from 'lodash'
 
-import { updateSettings, resetSettings, toggleVisibility } from '../actions/settings_actions.js'
+import { updateSettings, resetSettings, toggleVisibility, changeActiveSetting } from '../actions/settings_actions.js'
 import { clearText, loadFile } from '../actions/writer_actions'
 import { resetTimer } from '../actions/timer_actions'
 import { saveFile } from '../actions/file_list_actions'
 
 
 const Settings = React.createClass({
-  updateBackground(color) {
-    this.props.updateSettings({ background: `#${color.hex}` })
-  },
+  updateColorSettings(color) {
+    const activeSetting = this.props.settings.activeSetting
 
-  updateText(color) {
-    this.props.updateSettings({ color: `#${color.hex}` })
+    if(activeSetting === 'background') {
+      this.props.updateSettings({ background: `#${color.hex}` })
+    } else if(activeSetting === 'color') {
+      this.props.updateSettings({ color: `#${color.hex}` })
+    } else if (activeSetting === 'linkColor') {
+      this.props.updateSettings({ linkColor: `#${color.hex}`})
+    }
   },
 
   toggleVisibility(e) {
@@ -40,7 +44,7 @@ const Settings = React.createClass({
   saveFile(e) {
     e.preventDefault()
 
-    const {files, text, timer, loadedFileId } = this.props
+    const { files, text, timer, loadedFileId } = this.props
     const id = this.props.loadedFileId === null ? files.length : loadedFileId
 
     const file = {text: text, duration: timer, id: id }
@@ -49,12 +53,18 @@ const Settings = React.createClass({
     this.props.loadFile(file)
   },
 
+  activeColor() {
+    const activeSetting = this.props.settings.activeSetting
+
+    return this.props.settings[activeSetting]
+  },
+
   render() {
-    const { background, color, displaySettings } = this.props.settings
+    const { background, color, displaySettings, activeSetting } = this.props.settings
 
     return (
-      <div>
-        <ul className='settings'>
+      <div className='settings'>
+        <ul>
           <li>
             <a href='#' onClick={ this.clearText }>
               New
@@ -76,22 +86,30 @@ const Settings = React.createClass({
             </a>
           </li>
         </ul>
-        <div style={{display: displaySettings.settings}}>
+        <div style={{ display: displaySettings.settings }}>
           <div className='settings-panel'>
-            <p>Background color:</p>
-             <ColorPicker
-               type='chrome'
-               onChange={ this.updateBackground }
-               color={ background } />
+            <p>
+              <li className='color-setting'
+                style={activeSetting === 'background' ? { color: 'goldenrod' } : {}}
+                onClick={ () => this.props.changeActiveSetting('background') }>
+                  Background color
+              </li>
+              <li className='color-setting'
+                style={activeSetting === 'color' ? { color: 'goldenrod' } : {}}
+                onClick={ () => this.props.changeActiveSetting('color') }>
+                  Text color
+              </li>
+              <li className='color-setting'
+                style={activeSetting === 'linkColor' ? { color: 'goldenrod' } : {}}
+                onClick={ () => this.props.changeActiveSetting('linkColor') }>
+                  Link color
+              </li>
+            </p>
+            <ColorPicker
+              type={'chrome'}
+              onChange={ this.updateColorSettings }
+              color={ this.activeSetting() }/>
           </div>
-
-          <div className='settings-panel'>
-            <p>Text color: </p>
-             <ColorPicker
-               type='chrome'
-               onChange={ this.updateText }
-               color={ color } />
-             </div>
         </div>
       </div>
     )
@@ -116,7 +134,8 @@ const mapDispatchToProps = (dispatch) => {
     toggleVisibility: (key) => dispatch(toggleVisibility(key)),
     resetTimer: () => dispatch(resetTimer()),
     saveFile: (file) => dispatch(saveFile(file)),
-    loadFile: (file) => dispatch(loadFile(file))
+    loadFile: (file) => dispatch(loadFile(file)),
+    changeActiveSetting: (setting) => dispatch(changeActiveSetting(setting))
   }
 }
 

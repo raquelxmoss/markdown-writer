@@ -1,6 +1,6 @@
 import Cookie from 'js-cookie'
 
-import { UPDATE_SETTINGS, RESET_SETTINGS, TOGGLE_VISIBILITY } from '../actions/settings_actions'
+import { UPDATE_SETTINGS, RESET_SETTINGS, TOGGLE_VISIBILITY, CHANGE_ACTIVE_SETTING } from '../actions/settings_actions'
 
 const defaultSettings = {
   fontFamily: 'Rokkitt',
@@ -9,6 +9,8 @@ const defaultSettings = {
   fontSize: '1.3em',
   background: '#fefefe',
   displaySettings: { settings: 'none', fileList: 'block' },
+  activeSetting: 'background',
+  linkColor: '#DAA520'
 }
 
 const setState = () => {
@@ -48,6 +50,9 @@ export const settings = (state = setState(), action) => {
       Cookie.set('settings', newSettings)
 
       return newSettings
+    }
+    case CHANGE_ACTIVE_SETTING: {
+      return Object.assign({}, state, {activeSetting: action.setting})
     }
     default:
       return state
