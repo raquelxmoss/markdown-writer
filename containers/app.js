@@ -22,6 +22,10 @@ const App = React.createClass({
     _.each(settings, function(value, key) {
       document.body.style[key] = value
     })
+
+    _.each(document.querySelectorAll('a'), function(link) {
+      link.style.color = settings.linkColor
+    })
   },
 
   onClick(e) {

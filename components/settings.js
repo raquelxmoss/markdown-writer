@@ -17,6 +17,8 @@ const Settings = React.createClass({
       this.props.updateSettings({ background: `#${color.hex}` })
     } else if(activeSetting === 'color') {
       this.props.updateSettings({ color: `#${color.hex}` })
+    } else if (activeSetting === 'linkColor') {
+      this.props.updateSettings({ linkColor: `#${color.hex}`})
     }
   },
 
@@ -51,8 +53,14 @@ const Settings = React.createClass({
     this.props.loadFile(file)
   },
 
+  activeColor() {
+    const activeSetting = this.props.settings.activeSetting
+
+    return this.props.settings[activeSetting]
+  },
+
   render() {
-    const { background, color, displaySettings } = this.props.settings
+    const { background, color, displaySettings, activeSetting } = this.props.settings
 
     return (
       <div className='settings'>
@@ -82,20 +90,25 @@ const Settings = React.createClass({
           <div className='settings-panel'>
             <p>
               <li className='color-setting'
-                style={this.props.settings.activeSetting === 'background' ? { color: 'goldenrod' } : {}}
+                style={activeSetting === 'background' ? { color: 'goldenrod' } : {}}
                 onClick={ () => this.props.changeActiveSetting('background') }>
                   Background color
               </li>
               <li className='color-setting'
-                style={this.props.settings.activeSetting === 'color' ? { color: 'goldenrod' } : {}}
+                style={activeSetting === 'color' ? { color: 'goldenrod' } : {}}
                 onClick={ () => this.props.changeActiveSetting('color') }>
                   Text color
+              </li>
+              <li className='color-setting'
+                style={activeSetting === 'linkColor' ? { color: 'goldenrod' } : {}}
+                onClick={ () => this.props.changeActiveSetting('linkColor') }>
+                  Link color
               </li>
             </p>
             <ColorPicker
               type={'chrome'}
               onChange={ this.updateColorSettings }
-              color={ this.props.settings.activeSetting === 'background' ? background : color }/>
+              color={ this.activeSetting() }/>
           </div>
         </div>
       </div>
