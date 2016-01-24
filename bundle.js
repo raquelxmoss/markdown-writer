@@ -528,7 +528,7 @@ var Settings = _react2.default.createClass({
           _react2.default.createElement(_reactColor2.default, {
             type: 'chrome',
             onChange: this.updateColorSettings,
-            color: this.activeSetting() })
+            color: this.activeColor() })
         )
       )
     );
