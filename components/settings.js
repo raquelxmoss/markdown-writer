@@ -7,6 +7,7 @@ import { updateSettings, resetSettings, toggleVisibility, changeActiveSetting } 
 import { clearText, loadFile } from '../actions/writer_actions'
 import { resetTimer } from '../actions/timer_actions'
 import { saveFile } from '../actions/file_list_actions'
+import MarkdownSyntax from './markdown_syntax'
 
 
 const Settings = React.createClass({
@@ -84,6 +85,9 @@ const Settings = React.createClass({
             <a href='#' onClick={ this.resetDefaults }>
               Reset
             </a>
+          </li>
+          <li>
+            <MarkdownSyntax />
           </li>
         </ul>
         <div style={{ display: displaySettings.settings }}>
