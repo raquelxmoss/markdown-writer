@@ -433,13 +433,13 @@ var Settings = _react2.default.createClass({
   updateColorSettings: function updateColorSettings(color) {
     var activeSetting = this.props.settings.activeSetting;
 
-    if (activeSetting === 'background') {
-      this.props.updateSettings({ background: '#' + color.hex });
-    } else if (activeSetting === 'color') {
-      this.props.updateSettings({ color: '#' + color.hex });
-    } else if (activeSetting === 'linkColor') {
-      this.props.updateSettings({ linkColor: '#' + color.hex });
-    }
+    var selectSetting = {
+      'background': { background: '#' + color.hex },
+      'color': { color: '#' + color.hex },
+      'linkColor': { linkColor: '#' + color.hex }
+    };
+
+    this.props.updateSettings(selectSetting[activeSetting]);
   },
   toggleVisibility: function toggleVisibility(e) {
     e.preventDefault();
@@ -466,7 +466,7 @@ var Settings = _react2.default.createClass({
     var timer = _props.timer;
     var loadedFileId = _props.loadedFileId;
 
-    var id = this.props.loadedFileId === null ? files.length : loadedFileId;
+    var id = loadedFileId === null ? files.length : loadedFileId;
 
     var file = { text: text, duration: timer, id: id };
 
@@ -689,10 +689,25 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Timer = _react2.default.createClass({
   displayName: 'Timer',
   componentDidMount: function componentDidMount() {
-    this.timer = setInterval(this.tick, 60000);
+    var _this = this;
+
+    this.timer = window.setInterval(this.tick, 60000);
+
+    window.onblur = function () {
+      return _this.clearTimer();
+    };
+    window.onfocus = function () {
+      return _this.restartTimer();
+    };
+  },
+  clearTimer: function clearTimer() {
+    window.clearInterval(this.timer);
+  },
+  restartTimer: function restartTimer() {
+    this.timer = window.setInterval(this.tick, 60000);
   },
   componentWillUnmount: function componentWillUnmount() {
-    clearInterval(this.timer);
+    this.clearTimer();
   },
   tick: function tick() {
     this.props.updateTimer();
@@ -44043,8 +44058,6 @@ var _file_list_actions = require('../actions/file_list_actions');
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-
-var initialState = _jsCookie2.default.get('files');
 
 var setState = function setState() {
   var files = _jsCookie2.default.get('files');
