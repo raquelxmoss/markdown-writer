@@ -28,8 +28,7 @@ const FileList = React.createClass({
                 <a href='#' onClick={ () => this.loadFile(i) }>
                   {title}
                 </a>
-                  <a href='#' onClick={ () => this.deleteFile(i) }><i className="fa fa-trash-o"></i>
-</a>
+                  <a href='#' onClick={ () => this.deleteFile(i) }><i className="fa fa-trash-o"></i></a>
               </li>
             )
           })
@@ -41,8 +40,7 @@ const FileList = React.createClass({
   renderFileToggler(state) {
     return(
       <a href='#' onClick={() => this.props.toggleFiles('fileList')}>
-        {state === 'block' ? <i className="fa fa-caret-up"></i> : <i className="fa fa-caret-down"></i>
-}
+        {state === 'block' ? <i className="fa fa-caret-up"></i> : <i className="fa fa-caret-down"></i>}
       </a>
     )
   },
