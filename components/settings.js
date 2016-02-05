@@ -14,13 +14,13 @@ const Settings = React.createClass({
   updateColorSettings(color) {
     const activeSetting = this.props.settings.activeSetting
 
-    if(activeSetting === 'background') {
-      this.props.updateSettings({ background: `#${color.hex}` })
-    } else if(activeSetting === 'color') {
-      this.props.updateSettings({ color: `#${color.hex}` })
-    } else if (activeSetting === 'linkColor') {
-      this.props.updateSettings({ linkColor: `#${color.hex}`})
+    const selectSetting = {
+      'background': { background: `#${color.hex}` },
+      'color': { color: `#${color.hex}` },
+      'linkColor': { linkColor: `#${color.hex}`}
     }
+
+    this.props.updateSettings(selectSetting[activeSetting])
   },
 
   toggleVisibility(e) {
@@ -46,9 +46,9 @@ const Settings = React.createClass({
     e.preventDefault()
 
     const { files, text, timer, loadedFileId } = this.props
-    const id = this.props.loadedFileId === null ? files.length : loadedFileId
+    const id = loadedFileId === null ? files.length : loadedFileId
 
-    const file = {text: text, duration: timer, id: id }
+    const file = { text: text, duration: timer, id: id }
 
     this.props.saveFile(file)
     this.props.loadFile(file)

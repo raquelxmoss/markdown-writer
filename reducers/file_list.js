@@ -3,8 +3,6 @@ import _ from 'lodash'
 
 import { SAVE_FILE, DELETE_FILE } from '../actions/file_list_actions'
 
-const initialState = Cookie.get('files')
-
 const setState = () => {
   const files = Cookie.get('files')
 
